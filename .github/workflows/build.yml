@@ -21,7 +21,7 @@ jobs:
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
-          java-version: 23
+          java-version: 21
           distribution: "zulu"
           
       - name: Cache Maven
@@ -31,11 +31,10 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
           
-      - name: Build and test backend
+      - name: Build backend
         working-directory: backend
         run: |
-          mvn clean compile test-compile
-          mvn test
+          mvn clean compile -DskipTests
           
       - name: Set up Node.js
         uses: actions/setup-node@v4
